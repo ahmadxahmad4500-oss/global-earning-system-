@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Investment</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin:0; padding:0;
+  background:#f4f6f9;
+}
+
+/* Header */
+header {
+  background: rgba(0,0,0,0.3);
+  padding:15px;
+  text-align:center;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  letter-spacing:1px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter: blur(5px);
+}
+
+/* Sections */
+section {
+  display:none;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+}
+section.active { display:block; }
+
+/* Home Section */
+#home {
+  display:block;
+  padding:80px 20px;
+  border-radius:12px;
+  color:white;
+  text-align:center;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+              url('https://images.unsplash.com/photo-1581091215364-23f60c62d3f2?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+}
+#home h1 {
+  font-size:42px;
+  font-weight:900;
+  text-shadow:2px 2px 8px rgba(0,0,0,0.6);
+}
+#home p {
+  font-size:20px;
+  margin-top:15px;
+  font-weight:600;
+  text-shadow:1px 1px 4px rgba(0,0,0,0.6);
+}
+
+/* Other Sections */
+section:not(#home) {
+  background:#f4f6f9;
+  color:#2c3e50;
+  border-radius:12px;
+  padding:30px 20px;
+}
+
+/* Plan Cards */
+.plan-card {
+  background: linear-gradient(135deg,#f39c12,#f1c40f);
+  color:white;
+  padding:20px;
+  margin:10px auto;
+  border-radius:12px;
+  box-shadow:0 6px 12px rgba(0,0,0,0.3);
+  max-width:400px;
+  text-align:center;
+  font-weight:bold;
+  transition:0.3s;
+  position:relative;
+}
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow:0 10px 18px rgba(0,0,0,0.4);
+}
+.plan-card button {
+  margin-top:10px;
+  background:#2ecc71;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.2s;
+}
+.plan-card button:hover { background:#27ae60; color:white; }
+
+/* Boxes */
+.dashboard-box, .ref-box, .deposit-box {
+  background:white;
+  padding:20px;
+  margin:15px auto;
+  border-radius:10px;
+  max-width:500px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  text-align:left;
+}
+
+/* Bottom Navigation */
+.nav-btns {
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#2c3e50;
+  padding:8px 0;
+  z-index:1000;
+}
+.nav-btns button {
+  flex:1 1 18%;
+  max-width:150px;
+  min-width:60px;
+  background:#2980b9;
+  color:white;
+  border:none;
+  padding:10px 5px;
+  border-radius:5px;
+  cursor:pointer;
+  font-weight:bold;
+  margin:2px;
+  transition:0.2s;
+}
+.nav-btns button:hover { background:#3498db; }
+
+/* Inputs */
+input, select { width:100%; padding:8px; border-radius:5px; border:1px solid #ccc; margin-top:10px; }
+button.copy-btn, button.deposit-btn { margin-top:10px; background:#2980b9; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; }
+button.copy-btn i, .plan-card button i { margin-right:8px; }
+@media(max-width:480px){ .nav-btns button { flex:1 1 30%; margin:2px; } }
+</style>
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+   (function(){emailjs.init("YOUR_EMAILJS_USER_ID");})();
+</script>
+</head>
+<body>
+
+<header>💹 Smart Investment</header>
+
+<!-- Home Section -->
+<section id="home" class="active">
+<h1>🌍 Welcome to Smart Investment</h1>
+<p>Invest Safely and Grow Your Money 💰</p>
+</section>
+
+<!-- Plans Section -->
+<section id="plans">
+<h2>Investment Plans</h2>
+
+<div class="plan-card"><h3>Starter Plan</h3><p>PKR 2,300 - 4% Daily</p><button onclick="buyPlan('Starter',2300)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>Basic Plan</h3><p>PKR 5,750 - 4% Daily</p><button onclick="buyPlan('Basic',5750)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>Standard Plan</h3><p>PKR 11,500 - 4% Daily</p><button onclick="buyPlan('Standard',11500)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>Advanced Plan</h3><p>PKR 20,000 - 4% Daily</p><button onclick="buyPlan('Advanced',20000)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>Premium Plan</h3><p>PKR 35,000 - 4% Daily</p><button onclick="buyPlan('Premium',35000)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>VIP Plan</h3><p>PKR 60,000 - 4.2% Daily</p><button onclick="buyPlan('VIP',60000)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card"><h3>Elite Plan</h3><p>PKR 100,000 - 4.2% Daily</p><button onclick="buyPlan('Elite',100000)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+<div class="plan-card" id="ultraPlan"><h3>Ultra Plan</h3><p>PKR 200,000 - 4.2% Daily</p><button onclick="buyPlan('Ultra',200000)"><i class="fa fa-shopping-cart"></i> Buy Plan</button></div>
+
+</section>
+
+<!-- Deposit Section -->
+<section id="deposit">
+<h2>Deposit for Your Plan</h2>
+<div class="deposit-box">
+<form id="depositForm">
+  <input type="hidden" id="selectedPlanInput">
+  <input type="hidden" id="selectedAmountInput">
+  <p><strong>Deposit Method:</strong></p>
+  <select id="depositMethod">
+    <option value="JazzCash">JazzCash - 03274888586</option>
+    <option value="EasyPaisa">EasyPaisa - 03274888586</option>
+  </select>
+  <input type="text" id="trxId" placeholder="Enter Transaction ID (TRX ID)" required>
+  <input type="file" id="trxScreenshot" accept="image/*" required>
+  <button type="submit" class="deposit-btn"><i class="fa fa-paper-plane"></i> Submit Deposit</button>
+</form>
+</div>
+</section>
+
+<!-- Dashboard Section -->
+<section id="dashboard">
+<h2>User Dashboard</h2>
+<div class="dashboard-box">
+  <p><strong>User Balance:</strong> PKR 0</p>
+  <p><strong>Total Income:</strong> PKR 0</p>
+  <p><strong>Plan History:</strong> None</p>
+  <button><i class="fa fa-money-bill-wave"></i> Withdraw</button>
+</div>
+</section>
+
+<!-- Referral Section -->
+<section id="referral">
+<h2>Referral System</h2>
+<div class="ref-box">
+  <p><strong>Level A:</strong> 10% Commission</p>
+  <p><strong>Level B:</strong> 4% Commission</p>
+  <p><strong>Level C:</strong> 2% Commission</p>
+  <hr>
+  <p><strong>Your Referral Link:</strong></p>
+  <input type="text" value="https://yoursite.com/signup?ref=USER123" id="refLink" readonly>
+  <button class="copy-btn" onclick="copyReferral()"><i class="fa fa-copy"></i> Copy Link</button>
+</div>
+</section>
+
+<!-- Support Section -->
+<section id="support">
+<h2>Contact Support</h2>
+<p>📞 WhatsApp: <a href="https://wa.me/923321665372" target="_blank">0332 1665372</a></p>
+<p>📧 Email: <a href="mailto:ahmadxahmad4500@gmail.com">ahmadxahmad4500@gmail.com</a></p>
+</section>
+
+<!-- Bottom Navigation Buttons -->
+<div class="nav-btns">
+  <button onclick="openSection('home')"><i class="fa fa-home"></i> Home</button>
+  <button onclick="openSection('plans')"><i class="fa fa-box"></i> Plans</button>
+  <button onclick="openSection('dashboard')"><i class="fa fa-tachometer-alt"></i> Dashboard</button>
+  <button onclick="openSection('referral')"><i class="fa fa-users"></i> Referral</button>
+  <button onclick="openSection('support')"><i class="fa fa-headset"></i> Support</button>
+</div>
+
+<script>
+function openSection(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function buyPlan(planName, amount){
+  document.getElementById('selectedPlanInput').value = planName;
+  document.getElementById('selectedAmountInput').value = amount;
+  openSection('deposit');
+}
+
+function copyReferral(){
+  var copyText = document.getElementById("refLink");
+  navigator.clipboard.writeText(copyText.value).then(()=> alert("Referral link copied!"));
+}
+
+document.getElementById('depositForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var plan = document.getElementById('selectedPlanInput').value;
+  var amount = document.getElementById('selectedAmountInput').value;
+  var method = document.getElementById('depositMethod').value;
+  var trx = document.getElementById('trxId').value;
+  var screenshot = document.getElementById('trxScreenshot').files[0];
+
+  if(!trx || !screenshot){
+    alert("Please enter TRX ID and upload screenshot!");
+    return;
+  }
+  alert("Deposit request submitted for plan: "+plan+" Amount: "+amount);
+  openSection('dashboard');
+});
+</script>
+
+</body>
+</html> 
